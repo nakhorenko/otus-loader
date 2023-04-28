@@ -109,3 +109,21 @@ vagrant ssh
   VG       #PV #LV #SN Attr   VSize   VFree
   OtusRoot   1   2   0 wz--n- <38.97g    0 
 ```
+## Добавляем модуль в initrd
+
+```
+[root@otusloader modules.d ~]# sudo !!
+sudo mkdir 01test
+
+nano module_setup.sh
+[root@otusloader modules.d ~]# nano test.sh
+[root@otusloader modules.d ~]# chmod +x module_setup.sh && chmod +x test.s
+
+[root@otusloader modules.d ~]# cp module_setup.sh /usr/lib/dracut/modules.d/01test/
+[root@otusloader modules.d ~]# cp test.sh /usr/lib/dracut/modules.d/01test/
+
+[root@otusloader modules.d ~]# mkinitrd -f -v /boot/initramfs-$(uname -r).img $(uname -r)
+*** Creating image file ***
+*** Creating image file done ***
+*** Creating initramfs image file '/boot/initramfs-3.10.0-1127.el7.x86_64.img' done ***
+```
